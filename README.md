@@ -1,3 +1,6 @@
+
+![image](https://github.com/JanyGee/JGString/blob/main/Source/icon.jpeg)
+
 # JGString
 
 [![CI Status](http://img.shields.io/travis/amayne/SwiftString.svg?style=flat)](https://travis-ci.org/amayne/SwiftString)
