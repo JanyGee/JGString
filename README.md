@@ -5,17 +5,17 @@
 
 # JGString
 
-[![CI Status](http://img.shields.io/travis/amayne/SwiftString.svg?style=flat)](https://travis-ci.org/amayne/SwiftString)
-[![Version](https://img.shields.io/cocoapods/v/SwiftString.svg?style=flat)](http://cocoapods.org/pods/SwiftString)
-[![License](https://img.shields.io/cocoapods/l/SwiftString.svg?style=flat)](http://cocoapods.org/pods/SwiftString)
-[![Platform](https://img.shields.io/cocoapods/p/SwiftString.svg?style=flat)](http://cocoapods.org/pods/SwiftString)
+[![CI Status](http://img.shields.io/travis/amayne/JGString.svg?style=flat)](https://travis-ci.org/amayne/JGString)
+[![Version](https://img.shields.io/cocoapods/v/JGString.svg?style=flat)](http://cocoapods.org/pods/JGString)
+[![License](https://img.shields.io/cocoapods/l/JGString.svg?style=flat)](http://cocoapods.org/pods/JGString)
+[![Platform](https://img.shields.io/cocoapods/p/JGString.svg?style=flat)](http://cocoapods.org/pods/JGString)
 [![Swift-5.0](http://img.shields.io/badge/Swift-5.0-blue.svg)]()
 
 JGString is a lightweight string extension for Swift.
 
 ## Installation
 
-SwiftString is available through [CocoaPods](http://cocoapods.org). To install
+JGString is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
@@ -304,7 +304,7 @@ import JGString
 
 ## Author
 
-Andrew Mayne, andrew@redbricklab.com
+Jany Gee, 1321899953@qq.com
 
 ## License
 
