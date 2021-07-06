@@ -1,5 +1,5 @@
 
-![image](https://github.com/JanyGee/JGString/blob/main/Source/icon.jpeg)
+<img src="https://github.com/JanyGee/JGString/blob/main/Source/icon.jpeg" width="400"/>
 
 # JGString
 
