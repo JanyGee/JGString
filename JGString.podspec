@@ -9,9 +9,8 @@ Pod::Spec.new do |s|
 
   s.homepage         = "https://github.com/JanyGee/JGString"
   s.license          = 'MIT'
-  s.author           = { "Andrew Mayne" => "1321899953@qq.com" }
+  s.author           = { "Jany" => "1321899953@qq.com" }
   s.source           = { :git => "https://github.com/JanyGee/JGString.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/amayne'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
