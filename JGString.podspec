@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JGString"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "A lightweight string extension for Swift"
 
   s.description      = <<-DESC
