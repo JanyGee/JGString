@@ -1,0 +1,6 @@
+framework module JGString {
+  umbrella header "JGString-umbrella.h"
+
+  export *
+  module * { export * }
+}

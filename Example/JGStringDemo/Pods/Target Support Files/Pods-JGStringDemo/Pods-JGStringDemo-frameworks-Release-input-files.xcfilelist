@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-JGStringDemo/Pods-JGStringDemo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/JGString/JGString.framework
+${BUILT_PRODUCTS_DIR}/SwiftHamcrest/Hamcrest.framework

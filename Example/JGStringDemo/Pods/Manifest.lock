@@ -1,0 +1,20 @@
+PODS:
+  - JGString (1.0.0)
+  - SwiftHamcrest (2.2.2)
+
+DEPENDENCIES:
+  - JGString
+  - SwiftHamcrest
+
+SPEC REPOS:
+  trunk:
+    - JGString
+    - SwiftHamcrest
+
+SPEC CHECKSUMS:
+  JGString: 9c78b137b19c0278b6359da0bfc23b3450a709c5
+  SwiftHamcrest: 940c3dae2a31f92da433f5a0b13d42103247051b
+
+PODFILE CHECKSUM: 603d1ef8d53b4f0ac611915821bfa784eb3b241f
+
+COCOAPODS: 1.10.1

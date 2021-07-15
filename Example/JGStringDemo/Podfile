@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'JGStringDemo' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+pod 'JGString'
+pod 'SwiftHamcrest'
+  # Pods for JGStringDemo
+
+  target 'JGStringDemoTests' do
+    inherit! :search_paths
+    # Pods for testing
+pod 'JGString'
+pod 'SwiftHamcrest'
+  end
+
+  target 'JGStringDemoUITests' do
+    # Pods for testing
+pod 'JGString'
+pod 'SwiftHamcrest'
+  end
+
+end

@@ -32,12 +32,12 @@ import JGString
 
 **between(left, right)**
 ```swift
-"<a>foo</a>".between(left: "<a>", "</a>") // "foo"
-"<a><a>foo</a></a>".between(left: "<a>", "</a>") // "<a>foo</a>"
-"<a>foo".between(left: "<a>", "</a>") // nil
-"Some strings } are very {weird}, dont you think?".between(left: "{", "}") // "weird"
-"<a></a>".between(left: "<a>", "</a>") // nil
-"<a>foo</a>".between(left: "<a>", "<a>") // nil
+"<a>foo</a>".between("<a>", "</a>") // "foo"
+"<a><a>foo</a></a>".between("<a>", "</a>") // "<a>foo</a>"
+"<a>foo".between("<a>", "</a>") // nil
+"Some strings } are very {weird}, dont you think?".between("{", "}") // "weird"
+"<a></a>".between("<a>", "</a>") // nil
+ "<a>foo</a>".between("<a>", "<a>") // nil
 ```
 
 **camelize()**
@@ -57,8 +57,8 @@ import JGString
 
 **chompLeft(string)**
 ```swift
-"foobar".chompLeft(prefix: "foo") // "bar"
-"foobar".chompLeft(prefix: "bar") // "foo"
+"foobar".chompLeft("foo") // "bar"
+"foobar".chompLeft("bar") // "foo"
 ```
 
 **chompRight(string)**
@@ -81,7 +81,7 @@ import JGString
 
 **count(string)**
 ```swift
-"hi hi ho hey hihey".count(substring: "hi") // 3
+"hi hi ho hey hihey".count("hi") // 3
 ```
 
 **decodeHTML()**
@@ -93,27 +93,27 @@ import JGString
 
 **endsWith(suffix)**
 ```swift
-"hello world".endsWith(suffix: "world") // true
-"hello world".endsWith(suffix: "foo") // false
+"hello world".endsWith("world") // true
+"hello world".endsWith("foo") // false
 ```
 
 **ensureLeft(prefix)**
 ```swift
-"/subdir".ensureLeft(prefix: "/") // "/subdir"
-"subdir".ensureLeft(prefix: "/") // "/subdir"
+"/subdir".ensureLeft("/") // "/subdir"
+"subdir".ensureLeft("/") // "/subdir"
 ```
 
 **ensureRight(suffix)**
 ```swift
-"subdir/".ensureRight(suffix: "/") // "subdir/"
-"subdir".ensureRight(suffix: "/") // "subdir/"
+"subdir/".ensureRight("/") // "subdir/"
+"subdir".ensureRight("/") // "subdir/"
 ```
 
 **indexOf(substring)**
 ```swift
-"hello".indexOf(substring: "hell"), // 0
-"hello".indexOf(substring: "lo"), // 3
-"hello".indexOf(substring: "world") // nil
+"hello".indexOf("hell"), // 0
+"hello".indexOf("lo"), // 3
+"hello".indexOf("world") // nil
 ```
 
 **initials()**
@@ -166,10 +166,10 @@ import JGString
 
 **join(sequence)**
 ```swift
-",".join(elements: [1,2,3]) // "1,2,3"
-",".join(elements: []) // ""
-",".join(elements: ["a","b","c"]) // "a,b,c"
-"! ".join(elements: ["hey","who are you?"]) // "hey! who are you?"
+",".join([1,2,3]) // "1,2,3"
+",".join([]) // ""
+",".join(["a","b","c"]) // "a,b,c"
+"! ".join(["hey","who are you?"]) // "hey! who are you?"
 ```
 
 **latinize()**
@@ -205,15 +205,15 @@ import JGString
 
 **startsWith(prefix)**
 ```swift
-"hello world".startsWith(prefix: "hello") // true
-"hello world".startsWith(prefix: "foo") // false
+"hello world".startsWith("hello") // true
+"hello world".startsWith("foo") // false
 ```
 
 **split(separator)**
 ```swift
-"hello world".split(separator: " ")[0] // "hello"
-"hello world".split(separator: " ")[1] // "world"
-"helloworld".split(separator: " ")[0] // "helloworld"
+"hello world".split(" ")[0] // "hello"
+"hello world".split(" ")[1] // "world"
+"helloworld".split(" ")[0] // "helloworld"
 ```
 
 **times(n)**
@@ -290,16 +290,16 @@ import JGString
 
 **substring(startIndex, length)**
 ```swift
-"hello world".substring(startIndex: 0, length: 1) // "h"
-"hello world".substring(startIndex: 0, length: 11) // "hello world"
+"hello world".substring(0, length: 1) // "h"
+"hello world".substring(0, length: 11) // "hello world"
 ```
 
 **[subscript]**
 ```swift
-""hello world"[0..<2] == "he"" // "he"
-""hello world"[0..<1] == "h"" // "h"
-""hello world"[0] == "h""
-""hello world"[0..<11] == "hello world"" // "hello world"
+"hello world"[0...1] // "he"
+"hello world"[0..<1] // "h"
+"hello world"[0] // "h"
+"hello world"[0...10] // "hello world"
 ```
 
 ## Author
