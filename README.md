@@ -1,5 +1,5 @@
 <p align="center" >
-  <img src="https://github.com/JanyGee/JGString/blob/main/Source/icon.jpeg">
+  <img src="https://github.com/JanyGee/JGString/blob/main/Source/icon.png">
 </p>
 
 
