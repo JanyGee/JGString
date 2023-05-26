@@ -304,7 +304,6 @@ import JGString
 
 ## Author
 
-
 Jany Gee, 1321899953@qq.com
 
 ## License
