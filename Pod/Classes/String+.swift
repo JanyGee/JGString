@@ -15,27 +15,33 @@ public extension String {
     ///
     ///  - returns: The string between the two bookends, or nil if the bookends cannot be found, the bookends are the same or appear contiguously.
     func between(left: String, _ right: String) -> String? {
-        
+        guard left != right, let leftRange = range(of: left) else {
+            return nil
+        }
+
+        let searchRange = leftRange.upperBound..<endIndex
         guard
-            let leftRange = range(of:left), let rightRange = range(of: right, options: .backwards, range: nil, locale: nil), left != right && self[leftRange].endIndex != self[rightRange].startIndex
-            else { return nil }
+            let rightRange = range(of: right, options: .backwards, range: searchRange, locale: nil),
+            leftRange.upperBound < rightRange.lowerBound
+        else {
+            return nil
+        }
 
-        return String(self[self[leftRange].endIndex..<self[rightRange].startIndex])
-
+        return String(self[leftRange.upperBound..<rightRange.lowerBound])
     }
     
     func camelize() -> String {
-        let source = clean(with: " ", allOf: "-", "_")
-        if source.contains(" ") {
-            let first = source.prefix(1)
-            let cammel = NSString(format: "%@", (source as NSString).capitalized.replacingOccurrences(of: " ", with: "")) as String
-            let rest = String(cammel.dropFirst())
-            return "\(first)\(rest)"
-        } else {
-            let first = (source as NSString).lowercased.prefix(1)
-            let rest = String(source.dropFirst())
-            return "\(first)\(rest)"
+        let words = clean(with: " ", allOf: "-", "_")
+            .split(whereSeparator: \.isWhitespace)
+            .map(String.init)
+
+        guard let firstWord = words.first else {
+            return ""
         }
+
+        let head = firstWord.prefix(1).lowercased() + firstWord.dropFirst()
+        let tail = words.dropFirst().map { $0.capitalized }.joined()
+        return head + tail
     }
     
     func capitalize() -> String {
@@ -83,6 +89,9 @@ public extension String {
     }
     
     func count(substring: String) -> Int {
+        guard !substring.isEmpty else {
+            return 0
+        }
         return components(separatedBy: substring).count - 1
     }
     
@@ -114,14 +123,20 @@ public extension String {
     }
     
     func initials() -> String {
-        let words = components(separatedBy: " ")
-        return words.reduce(""){$0 + $1.prefix(1)}
+        return split(whereSeparator: \.isWhitespace).reduce("") { partialResult, word in
+            partialResult + word.prefix(1)
+        }
     }
     
     func initialsFirstAndLast() -> String {
-        let words = components(separatedBy: " ")
-        return words.reduce("") { String(($0 == "" ? "" : $0.prefix(1)) + $1.prefix(1))}
-        //return words.reduce("") { ($0 == "" ? "" : $0[0...0]) + $1[0...0]}
+        let words = split(whereSeparator: \.isWhitespace)
+        guard let first = words.first else {
+            return ""
+        }
+        guard let last = words.last, words.count > 1 else {
+            return String(first.prefix(1))
+        }
+        return String(first.prefix(1) + last.prefix(1))
     }
     
     func isAlpha() -> Bool {
@@ -134,12 +149,14 @@ public extension String {
     }
     
     func isAlphaNumeric() -> Bool {
-        let alphaNumeric = NSCharacterSet.alphanumerics
-        return components(separatedBy: alphaNumeric).joined(separator: "").length == 0
+        guard !self.isEmpty else {
+            return false
+        }
+        return rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) == nil
     }
     
     func isEmpty() -> Bool {
-        return trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines).length == 0
+        return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     func isNumeric() -> Bool {
@@ -154,13 +171,11 @@ public extension String {
     }
     
     func join<S: Sequence>(elements: S) -> String {
-        return elements.map { (ele) -> String in
-            return (ele as? String) ?? ""
-        }.joined(separator: self)
+        return elements.map { String(describing: $0) }.joined(separator: self)
     }
     
     func latinize() -> String {
-        return folding(options: .caseInsensitive, locale: Locale.current)
+        return folding(options: .diacriticInsensitive, locale: Locale.current)
     }
     
     func lines() -> [String] {
@@ -174,7 +189,7 @@ public extension String {
     }
     
     func stimes(_ n: Int) -> String {
-        return String(repeating: self, count: n)
+        return n > 0 ? String(repeating: self, count: n) : ""
     }
     
     func pad(_ n: Int, _ string: String = " ") -> String {
@@ -213,9 +228,7 @@ public extension String {
     }
     
     func times(_ n: Int) -> String {
-        return (0..<n).reduce(""){r,_ in
-            return r + self
-        }
+        return stimes(n)
     }
     
     func toFloat() -> Float? {
@@ -257,18 +270,17 @@ public extension String {
     }
     
     func trimmedLeft() -> String {
-        
         if let range = rangeOfCharacter(from: NSCharacterSet.whitespacesAndNewlines.inverted) {
             return String(self[self[range].startIndex..<endIndex])
         }
-        return self
+        return ""
     }
     
     func trimmedRight() -> String {
         if let range = rangeOfCharacter(from: NSCharacterSet.whitespacesAndNewlines.inverted, options: .backwards, range: nil) {
             return String(self[startIndex..<self[range].endIndex])
         }
-        return self
+        return ""
     }
     
     func trimmed() -> String {
@@ -277,9 +289,9 @@ public extension String {
     
     subscript(r: Range<Int>) -> String {
         get {
-            let startIndex = self.index(self.startIndex, offsetBy: r.startIndex)
-            let endIndex = self.index(self.startIndex, offsetBy: r.endIndex - r.startIndex)
-            return String(self[startIndex..<endIndex])
+            let start = index(startIndex, offsetBy: r.lowerBound)
+            let end = index(start, offsetBy: r.count)
+            return String(self[start..<end])
         }
     }
     
@@ -565,7 +577,10 @@ public extension String {
     //    decodeNumeric("20ac", 16) --> "€"
     private func decodeNumeric(string : String, base : Int32) -> Character? {
         let code = UInt32(strtoul(string, nil, base))
-        return Character(UnicodeScalar(code)!)
+        guard let scalar = UnicodeScalar(code) else {
+            return nil
+        }
+        return Character(scalar)
     }
     
     // Decode the HTML character entity to the corresponding
@@ -576,9 +591,9 @@ public extension String {
     //     decode("&foo;")    --> nil
     private func decode(entity : String) -> Character? {
         if entity.hasPrefix("&#x") || entity.hasPrefix("&#X"){
-            return decodeNumeric(string: entity.substring(startIndex: 0, length: 3), base: 16)
+            return decodeNumeric(string: String(entity.dropFirst(3).dropLast()), base: 16)
         } else if entity.hasPrefix("&#") {
-            return decodeNumeric(string: entity.substring(startIndex: 0, length: 2), base: 10)
+            return decodeNumeric(string: String(entity.dropFirst(2).dropLast()), base: 10)
         } else {
             return HTMLEntities.characterEntities[entity]
         }
