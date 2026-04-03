@@ -1,10 +1,12 @@
 Pod::Spec.new do |s|
   s.name             = "JGString"
   s.version          = "1.0.2"
-  s.summary          = "A lightweight string extension for Swift"
+  s.summary          = "Swift string utilities for slugify, camelize, trim, initials, HTML decode, and parsing"
 
   s.description      = <<-DESC
-                        Common methods and String operations for Swift
+                        JGString is a lightweight Swift string utilities library that adds practical String helpers for
+                        slugify, camelize, whitespace trimming, initials extraction, HTML entity decoding, prefix and
+                        suffix handling, and converting strings into numbers, booleans, and dates.
                        DESC
 
   s.homepage         = "https://github.com/JanyGee/JGString"
